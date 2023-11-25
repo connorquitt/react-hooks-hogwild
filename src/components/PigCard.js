@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import hogs from "../porkers_data";
+import Filter from "./Filter";
 
 function HandleClick(event) {
 	const details = event.target.querySelector("#details")
@@ -10,28 +11,28 @@ function HandleClick(event) {
 	}
 }
 
-function PigCard(hogArray) {
-	// const hog = hogArray.map((e) => {
-	// 	return (
-	// 	<div className="ui centered card" key={e.name}>
-	// 		<div className="header">{e.name}</div>
-	// 		<div className="image">
-	// 			<img src={e.image} alr="pig loading..." />
-	// 		</div>
-	// 		<div className="ui bottom attached button" onClick={HandleClick}>
-	// 			More Info
-	// 			<div className="hidden" id='details'>
-	// 			<p>Speciatly: {e.specialty}</p>
-	// 			<p>Weight: {e.weight}</p>
-	// 			<p>Greased: {e.greased ? 'Yes' : 'No'}</p>
-	// 			<p>Highest Medal: {e["highest medal achieved"]}</p>
-	// 		</div>
-	// 		</div>
-	// 	</div>
-	// 	)
-	// })
-	// return hog
-    console.log(hogArray)
+function PigCard({ hogArray }) {
+	const hog = hogArray.map((e) => {
+		return (
+		<div className="ui centered card" key={e.name}>
+			<div className="header">{e.name}</div>
+			<div className="image">
+				<img src={e.image} alr="pig loading..." />
+			</div>
+			<div className="ui bottom attached button" onClick={HandleClick}>
+				More Info
+				<div className="hidden" id='details'>
+				<p>Speciatly: {e.specialty}</p>
+				<p>Weight: {e.weight}</p>
+				<p>Greased: {e.greased ? 'Yes' : 'No'}</p>
+				<p>Highest Medal: {e["highest medal achieved"]}</p>
+			</div>
+			</div>
+		</div>
+		)
+	})
+	return hog
+    
 }
 
 export default PigCard

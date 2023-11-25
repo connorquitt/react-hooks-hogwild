@@ -2,16 +2,14 @@ import React, {useEffect, useState} from "react";
 import PigCard from "./PigCard";
 import Nav from "./Nav";
 import hogs from "../porkers_data";
+import Filter from "./Filter";
 
 function App() {
-	const [isCheck, setIsCheck] = useState(true)
-	const filteredHogs = useEffect(() => {
-		hogs.filter((e) => e.greased === isCheck)
-	}, [App])
+	const [hogArray, setHogArray] = useState(hogs)
 	return (
 		<div className="App">
-			<Nav isCheck={isCheck} setIsCheck={setIsCheck}/>
-			<PigCard hogArray={filteredHogs}/>
+			<Nav hogArray={hogArray} setHogArray={setHogArray}/>
+			<PigCard hogArray={hogArray}/>
 		</div>
 	);
 }

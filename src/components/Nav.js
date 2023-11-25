@@ -1,10 +1,18 @@
 import React, {useState} from "react";
 import piggy from "../assets/porco.png";
 
-const Nav = ({ isCheck, setIsCheck }) => {
 
-	function HandleGrease() {
+const Nav = ({hogArray, setHogArray}) => {
+	const [isCheck, setIsCheck] = useState(true)
+
+	function FilterGrease(){
 		setIsCheck(!isCheck)
+		let updatedGrease = hogArray.filter((e) => e.greased === true)
+		if(isCheck === true) {
+			return setHogArray(updatedGrease)
+		}else if(isCheck === false) {
+			return null
+		}
 	}
 	return (
 		<div className="navWrapper">
@@ -16,8 +24,8 @@ const Nav = ({ isCheck, setIsCheck }) => {
 				A React App for County Fair Hog Fans
 			</span>
 			<div>
-				<input type="text" id='search'/>
-				<input type="checkbox" id='isGreased' value={isCheck} onClick={HandleGrease}/>
+				<input type="text" id='search' />
+				<input type="checkbox" id='isGreased' value={isCheck} onClick={FilterGrease}/>
 			</div>
 		</div>
 	);
