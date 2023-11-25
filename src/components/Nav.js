@@ -1,18 +1,39 @@
 import React, {useState} from "react";
 import piggy from "../assets/porco.png";
+import hogs from "../porkers_data";
 
 
 const Nav = ({hogArray, setHogArray}) => {
-	const [isCheck, setIsCheck] = useState(true)
+	const [searchVal, setSearchVal] = useState('')
+	const [searchType, setSearchType] = useState(true)
 
 	function FilterGrease(){
-		setIsCheck(!isCheck)
 		let updatedGrease = hogArray.filter((e) => e.greased === true)
-		if(isCheck === true) {
-			return setHogArray(updatedGrease)
-		}else if(isCheck === false) {
-			return null
+		setHogArray(updatedGrease)
+	}
+
+	function handleSearch(event) {
+		setSearchVal(event.target.value)
+		if(searchType === true){ //true===name
+		 	let filteredHogsName = hogs.filter((e) => e.name.toLowerCase() === event.target.value.toLowerCase())
+			console.log(filteredHogsName)
+		 	return setHogArray(filteredHogsName)
+		}else if(searchType === false){ //false===weight
+			let filteredHogsWeight = hogs.filter((e) => e.weight.toString()[0] === event.target.value)
+			console.log(filteredHogsWeight)
+			return setHogArray(filteredHogsWeight)
+
 		}
+	}
+
+	function resetPigs() {
+		setSearchVal('')
+		setSearchType(true)
+		setHogArray(hogs)
+	}
+
+	function searchChange() {
+		setSearchType(!searchType)
 	}
 	return (
 		<div className="navWrapper">
@@ -24,8 +45,10 @@ const Nav = ({hogArray, setHogArray}) => {
 				A React App for County Fair Hog Fans
 			</span>
 			<div>
-				<input type="text" id='search' />
-				<input type="checkbox" id='isGreased' value={isCheck} onClick={FilterGrease}/>
+				<input type="button" id='searchType' onClick={searchChange} value={searchType ? 'name' : 'weight'} />
+				<input type="text" id='search' onChange={handleSearch} value={searchVal}/>
+				<input type="button" id='isGreased' value='only greased' onClick={FilterGrease}/>
+				<input type='button' id='reset' value='show all pigs' onClick={resetPigs} />
 			</div>
 		</div>
 	);
